@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useRef } from 'react'
+import { Todo } from './Model';
 import './styles.scss'
 interface Props {
     task: string,
@@ -6,9 +7,15 @@ interface Props {
     handleAdd: (e: React.FormEvent) => void;
 }
 const InputField: React.FC<Props> = ({task, setTask, handleAdd}) => {
+    const inputRef = useRef<HTMLInputElement>(null);
   return (
-    <form className='input' onSubmit={handleAdd}>
+    <form className='input' onSubmit={(e) => {
+        handleAdd(e);
+        //remove focus from input box to fix background
+        inputRef.current?.blur();
+    }}>
         <input 
+            ref={inputRef}
             className='input__box' 
             type="input" 
             placeholder='Enter a task'
