@@ -41,8 +41,16 @@ const SingleTodoItem: React.FC<Props> = ({id, task, isDone, setTodos, todos, ind
     const handleEdit = (e: React.FormEvent<HTMLInputElement>) => {
         setEditTask(e.currentTarget.value)
     }
-    const changeTask = (e: React.FormEvent) => {
-        e.preventDefault()
+    const changeTask = (e: React.FormEvent, itemId: number) => {
+        e.preventDefault();
+        console.log(itemId)
+        // !!! change list in state aswell, or we wont see changes after editing when we dragging single task in completed list
+        setTodos(todos.map(item => {
+            if (item.id === itemId) {
+                return {...item, task : editTask}
+            }
+            return item;
+        }))
         setIsEdit(false)
     }
 
@@ -59,7 +67,7 @@ const SingleTodoItem: React.FC<Props> = ({id, task, isDone, setTodos, todos, ind
             (provided, snapshot) => (
 
             <form 
-                onSubmit={changeTask} 
+                onSubmit={(e) => changeTask(e, id)} 
                 className={`todos__single ${snapshot.isDragging? 'drag': ''}`} 
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
@@ -75,7 +83,7 @@ const SingleTodoItem: React.FC<Props> = ({id, task, isDone, setTodos, todos, ind
                     placeholder={editTask}
                 />
                 : <span className={isDone ? 'todos__single-text_strike' : 'todos__single-text'}>
-                    {editTask}
+                    {task}
                 </span>
                 }
                 
