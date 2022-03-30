@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useRef, useState, useEffect} from 'react'
 import {AiFillEdit, AiFillDelete} from 'react-icons/ai'
 import {MdDone} from 'react-icons/md'
 import {Todo} from './Model'
@@ -17,6 +17,7 @@ const SingleTodoItem: React.FC<Props> = ({id, task, isDone, setTodos, todos, ind
     //edit state
     const [isEdit, setIsEdit] = useState<boolean>(false)
     const [editTask, setEditTask] = useState<string>(task)
+    const inputRef = useRef<HTMLInputElement>(null);
     //MARK AS DONE
     const handleDone = (itemId : number) => {
         //find todo to mark as done, toggle isDone property,return new array
@@ -44,6 +45,14 @@ const SingleTodoItem: React.FC<Props> = ({id, task, isDone, setTodos, todos, ind
         e.preventDefault()
         setIsEdit(false)
     }
+
+    //focus on input on edit
+    useEffect(() => {
+      inputRef?.current?.focus();
+     
+    }, [isEdit])
+    
+
   return (
     <Draggable draggableId={id.toString()} index={index}>
         {
@@ -56,7 +65,15 @@ const SingleTodoItem: React.FC<Props> = ({id, task, isDone, setTodos, todos, ind
                 {...provided.dragHandleProps}
                 ref={provided.innerRef}
             >
-                {isEdit? <input onChange={handleEdit} value={editTask} type="text" placeholder={editTask}/>
+                {isEdit? 
+                <input 
+                    ref={inputRef}
+                    className='todos__single-text' 
+                    onChange={handleEdit} 
+                    value={editTask} 
+                    type="text" 
+                    placeholder={editTask}
+                />
                 : <span className={isDone ? 'todos__single-text_strike' : 'todos__single-text'}>
                     {editTask}
                 </span>
