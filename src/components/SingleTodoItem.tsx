@@ -47,11 +47,11 @@ const SingleTodoItem: React.FC<Props> = ({id, task, isDone, setTodos, todos, ind
   return (
     <Draggable draggableId={id.toString()} index={index}>
         {
-            (provided) => (
+            (provided, snapshot) => (
 
             <form 
                 onSubmit={changeTask} 
-                className='todos__single' 
+                className={`todos__single ${snapshot.isDragging? 'drag': ''}`} 
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
                 ref={provided.innerRef}
