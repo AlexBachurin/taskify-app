@@ -1,7 +1,7 @@
 @import "../utils/variables";
 .input {
   display: flex;
-  width: 90%;
+  width: 95%;
   position: relative;
   align-items: center;
   &__box {
@@ -37,19 +37,37 @@
     }
   }
 }
-
+.container {
+  display: flex;
+  width: 95%;
+  margin-top: 10px;
+  justify-content: space-between;
+  align-items: flex-start;
+}
 .todos {
   display: flex;
-  justify-content: space-evenly;
-  width: 90%;
-  flex-wrap: wrap;
+  width: 47.5%;
+  flex-direction: column;
+  border-radius: 5px;
+  background-color: rgb(50, 195, 205);
+  &__heading {
+    padding-top: 10px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+  }
   &__single {
     display: flex;
-    width: 29.5%;
     border-radius: 5px;
+    margin: 15px;
     padding: 20px;
     margin-top: 15px;
+    transition: 0.2s;
     background-image: url("https://img.freepik.com/free-photo/crumpled-yellow-paper-background-close-up_60487-2390.jpg?size=626&ext=jpg");
+    &:hover {
+      box-shadow: 0 0 5px $black;
+      transform: scale(1.03);
+    }
     &-text {
       flex: 1;
       padding: 5px;
@@ -75,13 +93,14 @@
 }
 
 @media (max-width: 700px) {
+  .container {
+    flex-direction: column;
+    gap: 20px;
+  }
   .input {
     width: 95%;
   }
   .todos {
-    width: 95%;
-    &__single {
-      width: 100%;
-    }
+    width: 100%;
   }
 }
