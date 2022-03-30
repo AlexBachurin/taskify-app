@@ -1,5 +1,4 @@
 import React, { useRef } from 'react'
-import { Todo } from './Model';
 import './styles.scss'
 interface Props {
     task: string,
