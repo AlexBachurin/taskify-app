@@ -51,7 +51,7 @@
   border-radius: 5px;
   background-color: rgb(50, 195, 205);
   &__heading {
-    padding-top: 10px;
+    padding: 10px;
     text-align: center;
     font-size: 25px;
     font-weight: bold;
@@ -90,6 +90,9 @@
   margin-left: 10px;
   font-size: 25px;
   cursor: pointer;
+}
+.completed {
+  background-color: rgb(235, 103, 80);
 }
 
 @media (max-width: 700px) {
