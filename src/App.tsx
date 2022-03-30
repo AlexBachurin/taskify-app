@@ -8,7 +8,6 @@ import TodoList from './components/TodoList';
 const App: React.FC = () => {
   const [task, setTask] = useState<string>("");
   const [todos, setTodos] = useState<Todo[]>([]);
-  console.log(todos)
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
     //check if something inside input

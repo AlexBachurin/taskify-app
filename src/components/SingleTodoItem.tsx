@@ -12,15 +12,26 @@ interface Props {
     key: number
 }
 const SingleTodoItem: React.FC<Props> = ({id, task, isDone, setTodos, todos}) => {
+    const handleDone = (itemId : number) => {
+        console.log(itemId)
+        //find todo to mark as done, toggle isDone property,return new array
+        setTodos(todos.map(item => {
+            if(item.id === itemId) {
+                return {...item, isDone: !item.isDone}
+            }
+            return item;
+        }))
+        
+    }
   return (
     <form className='todos__single'>
-        <span className='todos__single-text'>
+        <span className={isDone ? 'todos__single-text_strike' : 'todos__single-text'}>
             {task}
         </span>
         <div>
             <span className='icon'><AiFillEdit/></span>
-            <span className='icon'><MdDone /></span>
-            <span className='icon'><AiFillDelete /></span>
+            <span  onClick={() => handleDone(id)} className='icon'><MdDone /></span>
+            <span  className='icon'><AiFillDelete /></span>
         </div>
     </form>
   )
