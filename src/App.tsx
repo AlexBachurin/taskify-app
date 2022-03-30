@@ -40,8 +40,8 @@ const App: React.FC = () => {
       if (destination.droppableId === source.droppableId && 
         destination.index === source.index) return;
       let add,
-          active = todos,
-          complete = completedTodos;
+          active = [...todos],
+          complete = [...completedTodos];
       //if it came from ActiveList take this item, and remove it from list
       //from where it was taken
       if (source.droppableId === 'ActiveList') {
