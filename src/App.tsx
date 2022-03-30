@@ -1,14 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.scss';
 import InputField from './components/InputField';
 import { Todo } from './components/Model';
 import TodoList from './components/TodoList';
 import {DragDropContext, DropResult} from 'react-beautiful-dnd'
+const getLocalStorageActive = () => {
+    const list = localStorage.getItem('activeList');
+    if (list) {
+        return JSON.parse(list);
+    }
+    return [];
+}
 
+const getLocalStorageCompleted = () => {
+    const list = localStorage.getItem('completedList');
+    if (list) {
+        return JSON.parse(list);
+    }
+    return [];
+}
 const App: React.FC = () => {
-  const [completedTodos, setCompletedTodos] = useState<Todo[]>([])
+  const [completedTodos, setCompletedTodos] = useState<Todo[]>(getLocalStorageCompleted())
   const [task, setTask] = useState<string>("");
-  const [todos, setTodos] = useState<Todo[]>([]);
+  const [todos, setTodos] = useState<Todo[]>(getLocalStorageActive());
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
     //check if something inside input
@@ -46,6 +60,11 @@ const App: React.FC = () => {
       setCompletedTodos(complete);
       setTodos(active)
   }
+
+  useEffect(() => {
+    localStorage.setItem('activeList' , JSON.stringify(todos))
+    localStorage.setItem('completedList', JSON.stringify(completedTodos))
+  },[todos, completedTodos])
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="App">
